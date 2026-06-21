@@ -51,8 +51,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: bramglas/kafkabridge-base:latest
     container_name: mqtt-bridge
     command: ["python", "mqtt_to_kafka.py"]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     env_file:
       - .env
     depends_on:
@@ -66,8 +69,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: bramglas/kafkabridge-base:latest
     container_name: dashboard
     command: ["python", "all_graphs.py"]
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "8050:8050"
     env_file:
@@ -83,7 +89,10 @@ services:
     build:
       context: ./pentaho
       dockerfile: Dockerfile
+    image: bramglas/kafkabridge-pentaho:latest
     container_name: pentaho
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     env_file:
       - .env
     depends_on:
