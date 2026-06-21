@@ -9,4 +9,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - run: |
+          echo "POSTGRESQL_PASSWORD=ci" >> .env
+          echo "POSTGRESQL_USER=ci" >> .env
+          echo "POSTGRESQL_DATABASE=ci" >> .env
+          echo "POSTGRESQL_PORT=5432" >> .env
+          echo "POSTGRESQL_SERVER=postgres" >> .env
+          echo "KAFKA_BOOTSTRAP_SERVERS=kafka:9092" >> .env
+          echo "KAFKA_TOPIC=home-sensors" >> .env
       - run: docker compose build && docker compose push

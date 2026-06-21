@@ -68,8 +68,6 @@ services:
     command: ["python", "all_graphs.py"]
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
-    ports:
-      - "8050:8050"
     env_file:
       - .env
     depends_on:
@@ -78,6 +76,7 @@ services:
     restart: unless-stopped
     networks:
       - kafka-net
+      - web
 
   pentaho:
     image: bramglas/kafkabridge-pentaho:latest
@@ -101,3 +100,6 @@ volumes:
 networks:
   kafka-net:
     driver: bridge
+  web:
+    external: true
+    name: web
